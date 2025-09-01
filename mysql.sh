@@ -29,21 +29,19 @@ CHECK_ROOT(){
     fi
 }
 
-mkdir -p $LOGS_FOLDER
 
 echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
 
 dnf install mysql-server -y &>>$LOG_FILE_NAME
-VALIDATE $? "Installing Mysql server"
+VALIDATE $? "Installing mysql server"
 
 systemctl enable mysqld &>>$LOG_FILE_NAME
-VALIDATE $? "Enabling Mysql server"
+VALIDATE $? "Enabling MySQL server"
 
 systemctl start mysqld &>>$LOG_FILE_NAME
-VALIDATE $? "Starting Mysql server"
+VALIDATE $? "Starting mysql server"
 
- mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE_NAME
- VALIDATE $? "Setting root password"
-
+mysql_secure_installation --set-root-pass ExpenseApp@1
+VALIDATE $? "Setting up root password"
